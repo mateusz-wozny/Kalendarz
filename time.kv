@@ -1,0 +1,283 @@
+
+<ItemDrawer>:
+    theme_text_color: "Custom"
+    on_release: self.parent.set_color_item(self)
+
+    IconLeftWidget:
+        id: icon
+        icon: root.icon
+        theme_text_color: "Custom"
+        text_color: root.text_color
+
+<Check@MDCheckbox>:
+    group:'group'
+    size_hint:None,None
+    size:dp(30),dp(30)
+<ContentNavigationDrawer>:
+    orientation: "vertical"
+    padding: "8dp"
+    spacing: "8dp"
+
+    AnchorLayout:
+        anchor_x: "left"
+        size_hint_y: None
+        #height: avatar.height
+        #Image:
+            #id: avatar
+            #size_hint: None, None
+            #size: "150dp", "200dp"
+            #source: "logo.png"
+
+    ScrollView:
+
+        DrawerList:
+            id: md_list
+
+<MDDataTable>:
+    id:data
+    column_data:[('dada',dp(10))]
+
+<Content>:
+    id:content
+    orientation: "vertical"
+    spacing: "10dp"
+    size_hint_y: None
+    #size_hint_x: None
+    height: "280dp"
+    #width:"300dp"
+    MDTextField:
+        id:imie_uzyt
+        hint_text: "Imię"
+    MDTextField:
+        id:nazw_uzyt
+        hint_text: "Nazwisko"
+    MDTextField:
+        id:przed_uzyt
+        hint_text: "Przedmiot/y"
+    MDTextField:
+        id:login_uzyt
+        hint_text: "Login"
+    MDTextField:
+        id:haslo_uzyt
+        hint_text: "Hasło"
+        password:True
+
+MDScreen:
+    MDNavigationLayout:
+        ScreenManager:
+            id:manager
+            MDScreen:
+
+                MDCard:
+                    size_hint: None,None
+                    size: 400,400
+                    pos_hint:{'center_x':0.5,'center_y':0.5}
+                    elevation:10
+                    padding:"25dp"
+                    spacing:"25dp"
+                    orientation:"vertical"
+                    MDLabel:
+                        text:"Zaloguj się do systemu"
+                        font_size: 18
+                    MDTextField:
+                        id: login
+                        hint_text: "Wprowadź login"
+                        size_hint: None,None
+                        width: "280dp"
+
+
+                        font_size: 16
+                    MDTextField:
+                        id: haslo
+                        password:True
+                        hint_text: "Wprowadź hasło"
+                        size_hint: None,None
+                        width: "280dp"
+                        font_size: 16
+                    MDBoxLayout:
+                        MDIconButton:
+                            icon: 'account-plus'
+                            on_release:app.dodaj_uzytkownika()
+                        Widget:
+                        MDRaisedButton:
+                            text: "Zaloguj"
+                            font_size: 16
+                            on_release: app.zaloguj()
+                           # md_bg_color: 0, 0, 1, 1
+
+
+            MDScreen:
+                name:"Kalendarz"
+                MDBoxLayout:
+                    id:tool
+                    spacing:"20dp"
+                    orientation: 'vertical'
+                    MDToolbar:
+                        title: "Menu"
+                        elevation: 10
+                        left_action_items: [['menu', lambda x: nav_drawer.set_state("open")]]
+                    MDRaisedButton:
+                        text: "Wybierz okres"
+                        on_release:app.show_date2()
+
+
+
+            MDScreen:
+                name: "Dodaj nowego ucznia"
+                MDBoxLayout:
+
+                    orientation: 'vertical'
+                    MDToolbar:
+                        id:meny
+                        title: "Menu"
+                        elevation: 10
+                        left_action_items: [['menu', lambda x: nav_drawer.set_state("open")]]
+                    MDGridLayout:
+                        rows:2
+                        cols:2
+                        spacing:"20dp","10dp"
+                        MDTextField:
+                            id: imie
+                            hint_text: "Wprowadź imię"
+                            size_hint: None,None
+                            width: "180dp"
+                        MDTextField:
+                            id: nazwisko
+                            hint_text: "Wprowadź nazwisko"
+                            size_hint: None,None
+                            width: "180dp"
+
+                        MDLabel:
+                            text: "Lekcja próbna"
+                            pos_hint: None,None
+                            size_hint:None,None
+                            size:dp(100),dp(30)
+                            #height: "50dp"
+                        MDCheckbox:
+                            id: probna
+                            size_hint:None,None
+                            size:dp(30),dp(30)
+
+                    MDBoxLayout:
+                        spacing:"5dp"
+                        MDRaisedButton:
+                            text: "Wybierz datę"
+                            #post_hint: {'center_y':.5}
+                            on_release: app.show_date()
+                        MDBoxLayout:
+                            orientation:"vertical"
+                            MDLabel:
+                                text: "Data lekcji "
+                                post_hint: None,None
+                                width:"400dp"
+                            MDLabel:
+                                id: date_label
+                                post_hint: None,None
+                                width:"400dp"
+                        MDRaisedButton:
+                            text: "Wybierz godzinę"
+                            #post_hint: {'center_y':.5}
+                            on_release: app.show_time()
+
+                        MDBoxLayout:
+                            orientation:"vertical"
+                            MDLabel:
+                                text: "Czas rozpoczęcia "
+                                #post_hint: {'center_y':.5}
+                            MDLabel:
+                                id: time_label
+                                #post_hint: {'center_y':.5}
+                        MDBoxLayout:
+                            orientation:"vertical"
+                            MDLabel:
+                                text: "Czas zakończenia "
+                                #post_hint: {'center_y':.5}
+                            MDLabel:
+                                id: time_label2
+                                #post_hint: {'center_y':.5}
+                        MDRaisedButton:
+                            text: "Wyczyść"
+                            on_release: app.clearing2()
+
+                    MDBoxLayout:
+                        spacing:"2dp"
+                        MDLabel:
+                            text:"Wybierz poziom"
+                        Check:
+                            id:pp
+                            pos_hint:{'center_x':.4,'center_y':0.5}
+                        MDLabel:
+                            text:"PP"
+                        Check:
+                            id: r
+                            pos_hint:{'center_x':.4,'center_y':0.5}
+                        MDLabel:
+                            text:"R"
+                        Check:
+                            id: st
+                            pos_hint:{'center_x':.4,'center_y':0.5}
+                        MDLabel:
+                            text:"ST"
+
+                    MDBoxLayout:
+                        spacing:"5dp"
+                        MDGridLayout:
+                            cols:2
+                            MDLabel:
+                                text:"Powtarza się?"
+                            MDCheckbox:
+                                id: powtarza
+                                post_hint: None,None
+
+                        MDGridLayout:
+                            rows:2
+                            MDLabel:
+                                text:"Co ile?"
+                            MDTextField:
+                                id: liczba_dni
+                                input_filter: "str"
+                                disabled: not root.ids.powtarza.active
+                                hint_text: "Podaj liczbę dni"
+                                post_hint: 0.5,None
+                                #password: True
+                            MDRaisedButton:
+                                id: status
+                                text: "Wybierz status"
+                                size_hint: None,None
+                                width: "180dp"
+                                on_release: app.dodaj_status()
+                            MDLabel:
+                                id:status_tekst
+
+
+
+
+                    MDBoxLayout:
+                        spacing:"200dp"
+                        Widget:
+
+                        MDRaisedButton:
+                            text: "Zapisz"
+                            post_hint: {'x':"right"}
+                            on_release: app.zapisz_ucznia()
+            MDScreen:
+                name: "Podsumowanie"
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    spacing:"20dp"
+                    MDToolbar:
+                        id:meny
+                        title: "Menu"
+                        elevation: 10
+                        left_action_items: [['menu', lambda x: nav_drawer.set_state("open")]]
+                    MDGridLayout:
+                        rows:2
+                        id:summary
+                        MDRaisedButton:
+                            text: "Wybierz okres"
+                            on_release:app.show_date3()
+
+        MDNavigationDrawer:
+            id: nav_drawer
+            ContentNavigationDrawer:
+                id: content_drawer
